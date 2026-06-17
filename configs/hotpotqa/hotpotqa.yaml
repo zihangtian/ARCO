@@ -1,0 +1,65 @@
+dataset: hotpotqa
+
+data:
+  root: data/hotpotqa
+  train_file: data/hotpotqa/hotpot_train_v1.1.json
+  dev_file: data/hotpotqa/hotpot_dev_distractor_v1.json
+  split_dir: data/hotpotqa/splits
+  output_dir: data/hotpotqa/output
+  cache_dir: data/hotpotqa/.cache
+
+api:
+  # OpenAI-compatible endpoint used by the GPT teacher during warmup.
+  base_url: "https://api.openai.com/v1"
+  api_key: "YOUR_OPENAI_API_KEY"
+
+retriever:
+  url: "http://127.0.0.1:2022/retrieve"
+  # SimCSE checkpoint used as the local retriever encoder.
+  model_path: "princeton-nlp/unsup-simcse-roberta-base"
+  device: "cuda:0"
+  port: 2022
+  top_k: 1
+
+environment:
+  max_steps: 3
+
+prompts:
+  dir: prompts/hotpotqa
+  shared_dir: prompts/shared
+
+split:
+  train_size: 2000
+  dev_size: 500
+  seed: 42
+
+warmup:
+  output_file: data/hotpotqa/output/warmup_records.jsonl
+  resume: true
+  n_workers: 32
+  k_samples: 3
+  max_examples: 1000
+  policy:
+    backend: "api"
+    temperature: 1.0
+    max_tokens: 64
+    api_model: "gpt-4o-mini"
+    # Optional local backends, used only when policy.backend != "api".
+    local_model_path: "Qwen/Qwen3-4B-Instruct-2507"
+    local_device: "cuda:7"
+    local_batch_size: 32
+    vllm_url: "http://127.0.0.1:8001/v1"
+    vllm_model: "Qwen/Qwen3-4B-Instruct-2507"
+  rubric:
+    backend: "api"
+    api_model: "gpt-5.4"
+    max_tokens: 128
+
+eval:
+  base_model: "Qwen/Qwen3-4B-Instruct-2507"
+  device: "cuda:7"
+  batch_size: 32
+  max_new_tokens: 64
+  max_examples: 500
+  split: "dev"
+  debug_examples: 0

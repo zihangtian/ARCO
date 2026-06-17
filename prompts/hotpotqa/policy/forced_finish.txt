@@ -1,0 +1,7 @@
+Question: {question}
+
+Previous steps:
+{history}
+
+You have no searches remaining. You must now submit your final answer.
+Use Finish[answer] — do not search again.

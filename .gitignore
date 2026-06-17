@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.venv/
+venv/
+*.egg-info/
+
+# Logs / checkpoints
+logs/
+wandb/
+data/hotpotqa/checkpoints/
+data/hotpotqa/.cache/
+data/hotpotqa/output/*.tmp
+data/hotpotqa/analysis/
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local secrets
+.env
+*.api_key

@@ -1,0 +1,11 @@
+Question: {question}
+
+Action being evaluated: {action}
+
+Generate exactly 3 local criteria for judging this action. The criteria should say what this step ought to be judged on, such as query targeting, planning quality, evidence gathering, answer readiness, or avoiding redundant searches.
+If the action is malformed or marked as invalid, judge it as an invalid-action step.
+Each criterion should be short and concrete. Keep the full output concise.
+Write criterion phrases, not explanations.
+
+Output valid JSON only:
+{{"criteria": ["<criterion 1>", "<criterion 2>", "<criterion 3>"]}}

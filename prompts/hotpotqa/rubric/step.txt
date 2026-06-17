@@ -1,0 +1,17 @@
+Question: {question}
+
+Trajectory so far:
+{history}
+
+Searches remaining before this action: {searches_remaining}
+
+Action being evaluated: {action}
+
+Generate exactly {K} local criteria for judging this action. The criteria should say what this step ought to be judged on, such as query targeting, planning quality, evidence gathering, answer readiness, or avoiding redundant searches.
+If the action is malformed or marked as invalid, judge it as an invalid-action step that wastes budget and should be corrected on the next turn.
+If searches remaining is 0, the agent should submit with Finish[answer]; a Search action should be judged as a search-budget violation.
+Each criterion should be short and concrete. Keep the full output concise.
+Write criterion phrases, not explanations.
+
+Output valid JSON only:
+{{"criteria": [{K_schema}]}}

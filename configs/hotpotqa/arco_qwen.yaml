@@ -1,0 +1,73 @@
+# HotpotQA ARCO for Qwen.
+# Tuned reproducible config: 3 sparse epochs + conservative dense refinement.
+
+model:
+  # NOTE: replace with your local Qwen3-4B-Instruct-2507 path or a HF model id.
+  base_model_path: "Qwen/Qwen3-4B-Instruct-2507"
+  pi_sft_adapter: "data/hotpotqa/checkpoints/pi_sft_qwen/final"
+  mu_sft_adapter: "data/hotpotqa/checkpoints/mu_sft_qwen/best"
+  pi_ref_adapter: "data/hotpotqa/checkpoints/pi_sft_qwen/final"
+  mu_ref_adapter: "data/hotpotqa/checkpoints/mu_sft_qwen/best"
+  enable_mu: true
+  pi_device: "cuda:0"
+  mu_device: "cuda:1"
+  use_4bit: false
+  lora:
+    r: 8
+    alpha: 32
+    dropout: 0.05
+    target_modules: ["q_proj", "v_proj"]
+
+data:
+  dataset_config: configs/hotpotqa/hotpotqa.yaml
+  max_examples: 2000
+  max_eval_examples: 500
+  eval_splits: ["dev"]
+  visible_gpus: "3,4"
+
+retriever:
+  url: "http://127.0.0.1:2026/retrieve"
+
+rl:
+  epochs: 8
+  dense_start_epoch: 3
+  grpo_group_size: 4
+  advantage_mode: none
+  batch_size: 64
+  eval_batch_size: 32
+  rollout_temperature: 0.7
+
+  sparse_pi_lr: 1.0e-5
+  sparse_pi_kl_coef: 0.0
+  dense_pi_kl_coef: 0.05
+  pi_kl_coef: 0.05
+
+  dense_pi_lr: 3.0e-6
+  dense_signal_mode: "sum_return"
+  dense_baseline_mode: "position_bucket"
+  dense_bucket_mode: "search_terminal"
+  dense_bucket_leave_one_out: false
+  dense_bucket_fallback_to_global: true
+  dense_reward_scale: 0.5
+
+  mu_lr: 1.0e-5
+  score_head_lr: 5.0e-4
+  mu_kl_coef: 0.05
+
+  weight_decay: 0.01
+  score_mini_batch: 8
+  pi_max_new_tokens: 64
+  mu_max_new_tokens: 128
+  gradient_checkpointing: true
+  empty_cache_after_rollout: true
+  empty_cache_after_batch: true
+  logging_steps: 10
+  pre_eval: true
+  save_eval_traces: true
+  output_dir: "data/hotpotqa/checkpoints/arco_qwen"
+
+vllm:
+  enabled: true
+  gpu_memory_utilization: 0.85
+  max_model_len: 8192
+  dtype: "bfloat16"

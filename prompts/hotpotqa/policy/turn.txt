@@ -1,0 +1,6 @@
+Question: {question}
+
+Previous steps:
+{history}
+
+You have {searches_remaining} search(es) remaining. Use them wisely before submitting your answer.

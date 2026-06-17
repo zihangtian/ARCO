@@ -1,0 +1,1 @@
+The task is HotpotQA, a multi-hop question answering benchmark. The agent must answer a question by taking a short sequence of actions: Search[query] to retrieve evidence and Finish[answer] to submit the final answer. The agent may use at most 3 Search actions; once no searches remain, it must use Finish[answer].

@@ -1,0 +1,34 @@
+Below is the non-terminal prefix of a trajectory and the final reward it eventually received.
+
+Question: {question}
+
+Prefix trajectory:
+{trajectory_text}
+
+Final reward: {reward:.3f}  (0.0 = completely wrong, 1.0 = fully correct)
+
+Only score the prefix steps shown above. The terminal decision is excluded from this annotation and will be handled separately.
+For each prefix step, write exactly 3 local evaluation criteria for that action based on the context available at that point, and assign a score in [−1, +1] for each criterion separately.
+The criteria should be local to the current prefix and should not describe the final answer as a whole.
+Do not write a rationale for the score. Write the criteria themselves.
+Each criterion should be short and concrete. Keep the full output concise.
+Write criterion phrases, not explanations.
+Output only the final JSON array.
+
+Scoring guide (range −1 to +1, applies to each individual criterion score):
+- Scores are decomposition credits, not standalone quality labels. The final reward is only {reward:.3f}, so do not give large positive scores to many steps unless there are negative scores elsewhere to compensate.
+- +0.7 to +1.0 : Very strong positive credit — use sparingly for a criterion that is essential to the final correct answer.
+- +0.2 to +0.6 : Helpful — this criterion moves the trajectory toward the answer.
+- 0.0 : Neutral — this criterion neither helps nor hurts.
+- −0.2 to −0.6 : Harmful or wasteful — this criterion wastes budget, misses evidence, or adds confusion.
+- −0.7 to −1.0 : Strongly harmful — this criterion causes a wrong final answer or violates the search budget.
+
+CONSTRAINT: Each prefix step must have exactly 3 criteria and exactly 3 scores. The average of the 3 scores is the step's overall score. The sum of all prefix-step averages must equal exactly {reward:.3f}. This hard decomposition constraint overrides the local scoring guide: adjust magnitudes, including negative scores when necessary, so the exact sum is {reward:.3f}.
+CONSTRAINT: Output exactly one JSON entry for each prefix step in the provided trajectory prefix, in the same order. Do not add extra steps, summaries, or overall entries. Do not omit any prefix step.
+
+Output a JSON array — one entry per prefix step, in order. Even if there is only one prefix step, wrap it in an array. No markdown fences. No extra text.
+[
+  {{"step": 0, "criteria": ["...", "...", "..."], "scores": [<float>, <float>, <float>]}},
+  {{"step": 1, "criteria": ["...", "...", "..."], "scores": [<float>, <float>, <float>]}},
+  ...
+]

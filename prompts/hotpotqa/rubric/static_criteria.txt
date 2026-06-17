@@ -1,0 +1,1 @@
+{"criteria": ["Search query is specific and relevant to the question", "Action gathers useful evidence toward the answer", "Action avoids redundant searches and moves toward completion"]}

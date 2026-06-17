@@ -1,0 +1,24 @@
+# Core dependencies for ARCO. Pin versions if reproducibility is critical;
+# the values below are the versions we trained with.
+torch==2.6.0
+transformers==4.46.3
+peft==0.14.0
+accelerate==1.13.0
+datasets==3.2.0
+vllm==0.6.4.post1
+sentence-transformers==3.3.1
+scikit-learn==1.6.0
+numpy==1.26.4
+pandas==2.2.3
+tqdm==4.67.1
+pyyaml==6.0.2
+omegaconf==2.3.0
+wandb==0.18.7
+
+# API access for the GPT teacher used during warmup.
+openai==1.57.4
+
+# Retriever service.
+fastapi==0.115.6
+uvicorn==0.32.1
+requests==2.32.3
