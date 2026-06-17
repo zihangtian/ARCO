@@ -1,0 +1,40 @@
+model:
+  # NOTE: replace with your local Qwen3-4B-Instruct-2507 path or a HF model id.
+  base_model_path: "Qwen/Qwen3-4B-Instruct-2507"
+  device: "cuda:0"
+  use_lora: true
+  use_4bit: false
+  lora:
+    r: 8
+    alpha: 32
+    dropout: 0.05
+    target_modules: ["q_proj", "v_proj"]
+
+data:
+  dataset_config: configs/hotpotqa/hotpotqa.yaml
+  warmup_file: null
+  train_file: data/hotpotqa/output/pi_sft_train_qwen_strict_v5_20260423_221009.jsonl
+  max_seq_length: 2048
+  min_reward: 1.0
+
+prompts:
+  prompt_dir: prompts/hotpotqa
+
+training:
+  seed: 42
+  epochs: 6
+  lr: 1.0e-5
+  batch_size: 2
+  grad_accum: 32
+  warmup_ratio: 0.03
+  weight_decay: 0.01
+  logging_steps: 10
+  save_every_epoch: false
+  output_dir: data/hotpotqa/checkpoints/pi_sft_qwen
+
+eval:
+  enabled: true
+  pre_eval: false
+  splits: ["dev"]
+  max_examples: 500
+  batch_size: 32

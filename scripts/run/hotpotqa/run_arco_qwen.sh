@@ -17,6 +17,8 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 cd "${ROOT_DIR}"
 
 CFG_DATASET="configs/hotpotqa/hotpotqa.yaml"
+CFG_PI="configs/hotpotqa/pi.yaml"
+CFG_MU="configs/hotpotqa/mu.yaml"
 CFG_ARCO="configs/hotpotqa/arco_qwen.yaml"
 
 LOGDIR="logs/hotpotqa"
@@ -47,11 +49,11 @@ python scripts/collect_warmup.py --config "${CFG_DATASET}"
 
 # ---- 2. SFT pi ----
 echo "[stage 2] warmup-SFT policy pi"
-python scripts/sft_pi.py --config "${CFG_ARCO}"
+python scripts/sft_pi.py --config "${CFG_PI}"
 
 # ---- 3. SFT mu ----
 echo "[stage 3] warmup-SFT rubric model mu"
-python scripts/sft_mu.py --config "${CFG_ARCO}"
+python scripts/sft_mu.py --config "${CFG_MU}"
 
 # ---- 4. ARCO RL ----
 echo "[stage 4] co-evolution RL"
