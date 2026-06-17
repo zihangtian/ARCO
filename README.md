@@ -1,4 +1,4 @@
-<h1 align="center">ARCO: Adaptive Rubric Co-Evolution for Multi-Step LLM Agents</h1>
+<h1 align="center">ARCO: Adaptive Rubric Co-Evolution for Multi-Step LLM-Based Agents</h1>
 
 <p align="center">
   <a href="https://github.com/zihangtian/ARCO"><img src="https://img.shields.io/badge/GitHub-Code-blue?style=flat-square&logo=github" alt="Code"></a>
