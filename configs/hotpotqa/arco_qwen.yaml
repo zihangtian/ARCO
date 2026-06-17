@@ -68,6 +68,6 @@ rl:
 
 vllm:
   enabled: true
-  gpu_memory_utilization: 0.85
+  gpu_memory_utilization: 0.45
   max_model_len: 8192
   dtype: "bfloat16"
