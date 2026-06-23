@@ -2,6 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/zihangtian/ARCO"><img src="https://img.shields.io/badge/GitHub-Code-blue?style=flat-square&logo=github" alt="Code"></a>
+  <a href="https://arxiv.org/abs/2606.21262"><img src="https://img.shields.io/badge/arXiv-2606.21262-b31b1b?style=flat-square&logo=arxiv" alt="arXiv"></a>
 </p>
 
 ---
@@ -159,3 +160,19 @@ ARCO/
     ├── splits/                   # train_2k.jsonl, dev_500.jsonl
     └── output/                   # GPT warmup + π / μ SFT data
 ```
+
+---
+
+## 📑 Citation
+
+If you find ARCO useful in your research, please cite our paper:
+
+```bibtex
+@article{tian2026arco,
+  title   = {ARCO: Adaptive Rubric with Co-Evolution for Multi-Step LLM-Based Agents},
+  author  = {Tian, Zihang and Zhang, Jingsen and Li, Rui and Bo, Xiaohe and Li, Yuanzi and Chen, Xu},
+  journal = {arXiv preprint arXiv:2606.21262},
+  year    = {2026}
+}
+```
+
